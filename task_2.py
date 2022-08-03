@@ -4,6 +4,8 @@ from TikTokApi import TikTokApi
 from moviepy.editor import VideoFileClip
 
 
+# https://www.youtube.com/shorts/NC4G_WnuKYs
+# "https://vm.tiktok.com/ZMNqhVbcV/?k=1"
 def tiktok_video_to_gif(url):
     """function that converts TikTok video to GIF"""
     # Downloading TikTok video to local PC
@@ -17,7 +19,6 @@ def tiktok_video_to_gif(url):
         # Writing video to file
         with open(video_name, "wb") as out_file:
             out_file.write(video_data)
-        out_file.close()
         print("Download completed!")
 
     # Converting downloaded video to GIF
@@ -35,7 +36,16 @@ def tiktok_video_to_gif(url):
 def main():
     """main() function"""
     user_url = input("Enter the TikTok video url:\n")
-    tiktok_video_to_gif(user_url)
+    try:
+        tiktok_video_to_gif(user_url)
+    # TypeError will occur if the link is not broken, but is not TikTok video link
+    except TypeError:
+        print("Entered URL is not TikTok video URL. Below is an example of a supported URL.\nhttps://www.tiktok.com/@therock/video/6829267836783971589"
+              )
+    # Exception for broken links
+    except:
+        print(
+            f"Connection error. Please, check the link {user_url} for mistakes.")
 
 
 main()
